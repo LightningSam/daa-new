@@ -1,0 +1,34 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+from collections import deque
+
+g = nx.Graph()
+
+e = int(input("Enter the no of edges: "))
+
+for _ in range(e):
+    u, v = map(int, input("Enter edge (u,v): ").split())
+    g.add_edge(u, v)
+
+start = int(input("Enter the starting vertex: "))
+
+visited = set()
+q = deque([start])
+
+print("BFS traversal: ")
+
+while q:
+    node = q.popleft()
+
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+
+        for neighbors in g.neighbors(node):
+            if neighbors not in visited:
+                q.append(neighbors)
+
+pos = nx.spring_layout(g)
+nx.draw(g, pos, with_labels=True)
+
+plt.show()
