@@ -1,0 +1,29 @@
+import matplotlib.pyplot as plt
+import networkx as nx
+
+g = nx.Graph()
+
+e=int(input("Enter the no of edges: "))
+
+for _ in range(e):
+    u,v=map(int,input("Enter the u,v edges: ").split())
+    g.add_edge(u,v)
+
+start = int(input("Enter the starting vertex: "))
+
+visited = set()
+
+def dfs(node):
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+
+        for neighbor in g.neighbors(node):
+            dfs(neighbor)
+
+print("DFS traversal: ")
+dfs(start)
+
+pos=nx.spring_layout(g)
+nx.draw(g,pos,with_labels=True)
+plt.show()
